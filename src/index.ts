@@ -1,1 +1,1 @@
-console.log("compiling to js")
+console.log("compiling to ts")
