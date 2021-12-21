@@ -8,7 +8,7 @@ export class Post {
   @PrimaryKey()
   _id!: number;
 
-  @Field(()=> String) 
+  @Field(()=> String) // making prop accessable by schema 
   @Property()
   createdAt: Date = new Date();
 
