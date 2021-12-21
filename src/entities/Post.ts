@@ -1,23 +1,28 @@
 import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
-import {ObjectType , Field , Int} from "type-graphql"
+import {ObjectType , Field } from "type-graphql"
 // adding schema 
 @ObjectType()
 @Entity()
 export class Post {
-  @Field(()=> Int) 
+  @Field() 
   @PrimaryKey()
   _id!: number;
+
   @Field(()=> String) 
   @Property()
   createdAt: Date = new Date();
+
   @Field(() => String) 
   @Property({ onUpdate: () => new Date() })
   updatedAt: Date = new Date();
-  @Field() 
+
+  @Field(()=> String) 
   @Property({type: 'text'})
   title!: string;
 
 
+  
+}
 //   @OneToMany(() => Book, book => book.author)
 //   books = new Collection<Book>(this);
 
@@ -33,5 +38,3 @@ export class Post {
 //     this.name = name;
 //     this.email = email;
 //   }
-
-}
