@@ -9,4 +9,4 @@ const main = async ()=>{
     const post = orm.em.create(Post , {title: 'first time using mikroOrm'})
     await orm.em.persistAndFlush(post)
 };
-main()
+main().catch(err => console.log(err))
