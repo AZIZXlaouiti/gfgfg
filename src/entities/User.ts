@@ -3,7 +3,7 @@ import {ObjectType , Field } from "type-graphql"
 // adding schema 
 @ObjectType()
 @Entity()
-export class Post {
+export class User {
   @Field() 
   @PrimaryKey()
   _id!: number;
