@@ -20,7 +20,7 @@ export class UserResolver {
         const hash = await argon2.hash(options.password);
         const user = em.create(User, { username: options.username, password: hash });
         await em.persistAndFlush(user);
-        return User
+        return User;
     }
 
 }

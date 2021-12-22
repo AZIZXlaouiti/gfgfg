@@ -5,7 +5,7 @@ import path from "path";
 import { User } from "./entities/User";
 export default  {
     migrations:{
-        path: path.join(__dirname,'./migrations'), // path to the folder with migrations
+        path: path.join('./migrations'), // path to the folder with migrations
         pattern:  /^[\w-]+\d+\.(js|ts)$/, // regex pattern for the migration files
     },
     entities: [Post , User],
