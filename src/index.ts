@@ -8,10 +8,29 @@ import {ApolloServer} from 'apollo-server-express'
 import {buildSchema} from 'type-graphql'
 import { UserResolver } from "./resolvers/User";
 import { PostResolver } from "./resolvers/Post";
+import connectRedis from 'connect-redis';
+import redis from 'redis';
+import session from 'express-session';
+
+
+
 const main = async ()=>{
     const orm = await MikroORM.init(mikroOrmConfig);
     await orm.getMigrator().up();
-    const app =  express();
+  
+    const app = express();
+  
+    const RedisStore = require('connect-redis')(session)
+    const redisClient = redis.createClient()
+
+    app.use(
+    session({
+        store: new RedisStore({ client: redisClient }),
+        saveUninitialized: false,
+        secret: 'keyboard cat',
+        resave: false,
+    })
+    )
 
     const apolloServer = new ApolloServer({
         schema: await buildSchema({

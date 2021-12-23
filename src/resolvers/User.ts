@@ -26,22 +26,30 @@ class UserResponse {
 }
 @Resolver()
 export class UserResolver {
-    @Mutation(() => User)
+    @Mutation(() => UserResponse)
     async register(
         @Arg('options') options: UsernamePasswordInput,
         @Ctx() { em }: MyContext
-    ) {
+    ) : Promise<UserResponse>{
         const hash = await argon2.hash(options.password);
         const user = em.create(User, { username: options.username, password: hash });
         await em.persistAndFlush(user);
-        return user
+        return {
+            user,
+           
+        }
     }
+
+
     @Query(()=> [User])
     async users(
         @Ctx() {em}:MyContext
     ){
         return em.find(User , {})
      }
+
+
+     
     @Query(() => UserResponse)
     async login(
         @Arg('options') options: UsernamePasswordInput,
