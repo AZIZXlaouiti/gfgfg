@@ -11,6 +11,7 @@ import { PostResolver } from "./resolvers/Post";
 import connectRedis from 'connect-redis';
 import redis from 'redis';
 import session from 'express-session';
+import { MyContext } from './types/types';
 
 
 
@@ -47,8 +48,10 @@ const main = async ()=>{
             validate: false,
             
         }),
-        context: ()=> ({
-            em: orm.em
+        context: ({ req , res }): MyContext=> ({
+            em: orm.em , 
+            req ,
+            res
         })
     });
     // creating a graphql endpoint inside express 
