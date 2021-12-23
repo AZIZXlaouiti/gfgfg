@@ -10,11 +10,17 @@ class UsernamePasswordInput {
     password: string
 
 }
-
+@ObjectType()
+class FieldError{
+  @Field()
+  field: string
+  @Field()
+  message: string
+}
 @ObjectType() // returned from mutation decorator 
 class UserResponse {
-  @Field(()=> [Error] , {nullable: true})
-  errors?: Error[]
+  @Field(()=> [FieldError] , {nullable: true})
+  errors?: FieldError[]
   @Field(()=> User, {nullable: true})
   user?: User
 }
@@ -36,21 +42,33 @@ export class UserResolver {
     ){
         return em.find(User , {})
      }
-    @Mutation(() => User)
+    @Mutation(() => UserResponse)
     async login(
         @Arg('options') options: UsernamePasswordInput,
         @Ctx() { em }: MyContext
-    ) {
-        try{
+    ): Promise<UserResponse> {
 
-            const user = em.findOne(User , {username: options.username})
-        }
-        catch{
+        const user =await em.findOne(User , {username: options.username})
+        if (!user){
+            
             return {
                 errors: [{
-
+                    field: "username",
+                    message: "username doesn't exist",
                 }]
             }
+        }
+        const valid = await argon2.verify(user.password, options.password) 
+        if (!valid){
+            return {
+                errors: [{
+                    field: "password",
+                    message: "incorrect password",
+                }]
+            }
+        }
+        return {
+            user,
         }
     }
 }
