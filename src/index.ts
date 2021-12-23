@@ -25,7 +25,16 @@ const main = async ()=>{
 
     app.use(
     session({
-        store: new RedisStore({ client: redisClient }),
+        store: new RedisStore({ 
+            client: redisClient, 
+            disableTouch: true,
+        }),
+        cookie:{
+          maxAge: 1000*60*60*24*365*10, // date of expiration is 10years
+          httpOnly: true ,
+          sameSite: 'lax' , 
+          secure: __prod__ // ensure working on production only https
+        },
         saveUninitialized: false,
         secret: 'keyboard cat',
         resave: false,
@@ -35,7 +44,7 @@ const main = async ()=>{
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
             resolvers: [UserResolver , PostResolver],
-            validate: false
+            validate: false,
             
         }),
         context: ()=> ({
