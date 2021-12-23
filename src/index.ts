@@ -20,7 +20,7 @@ const main = async ()=>{
   
     const app = express();
   
-    const RedisStore = require('connect-redis')(session)
+    const RedisStore = connectRedis(session)
     const redisClient = redis.createClient()
 
     app.use(
