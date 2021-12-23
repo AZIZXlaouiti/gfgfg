@@ -84,3 +84,5 @@ export class UserResolver {
         };
     }
 }
+// redis session update conflict
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/49941#issuecomment-748513261
