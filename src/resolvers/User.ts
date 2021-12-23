@@ -42,7 +42,7 @@ export class UserResolver {
     ){
         return em.find(User , {})
      }
-    @Mutation(() => UserResponse)
+    @Query(() => UserResponse)
     async login(
         @Arg('options') options: UsernamePasswordInput,
         @Ctx() { em }: MyContext
