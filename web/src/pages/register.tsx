@@ -19,7 +19,7 @@ const Register: React.FC<registerProps> = ({ }) => {
             console.log(values);
         }}
         >
-        {({values , handleChange})=>(
+        {({values , handleChange , isSubmitting})=>(
 
         
           <Form>
@@ -28,17 +28,20 @@ const Register: React.FC<registerProps> = ({ }) => {
                label='username'
                placeholder='username'
               />
+              <Box mt={4}>
+
               <InputField
                name='password'
                label='password'
                placeholder='password'
                type='password'
-              />
+               />
+               </Box>
                <Button
-              mt={4}
-              type="submit"
-            //   isLoading={isSubmitting}
-              variantColor="teal"
+                mt={4}
+                type="submit"
+                isLoading={isSubmitting}
+                variantcolor="teal"
             >
               register
             </Button>
