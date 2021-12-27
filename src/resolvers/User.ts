@@ -30,9 +30,10 @@ export class UserResolver {
     async me(
          @Ctx() { req , em }:MyContext
      ){
-       if (!req.session.userId){
-           return null;
-       }
+         if (!req.session.userId){
+             return null;
+            }
+            console.log("session" , req.session)
        
        const user = await em.findOne(User , {_id: req.session.userId})
        return user;

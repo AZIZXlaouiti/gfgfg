@@ -64,4 +64,7 @@ const main = async () => {
 
 main().catch(err => console.log(err))
 //  1. Server<<session>> --> cookie storage<browser>
-//  2. browser<<cookie>> --> Server<{cookie : {session_id}}>
+//  2. browser<<cookie>> --> Server<Session: {
+                                 //      cookie : {...props}
+                                //       userId : user_id
+                                           //}>
