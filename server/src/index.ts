@@ -13,6 +13,7 @@ import connectRedis from 'connect-redis';
 import redis from 'redis';
 import session from 'express-session';
 import { MyContext } from './types/types';
+import cors from "cors"
 
 const main = async () => {
     const orm = await MikroORM.init(mikroOrmConfig);
@@ -22,7 +23,13 @@ const main = async () => {
 
     const RedisStore = connectRedis(session);
     const redisClient = redis.createClient();
-
+     
+    app.use(
+    // applying cors globaly with express    
+    cors({
+        origin: 'http://localhost:3000',
+        credentials:true
+    }))
     app.use(
         session({
             name: "quidd",
@@ -55,9 +62,11 @@ const main = async () => {
         }),
     });
 
-    apolloServer.applyMiddleware({ app  , cors:{
-        origin: 'htttp://localhost:3000' 
-    }});
+    apolloServer.applyMiddleware({ 
+        app,
+        cors:false
+         
+    });
 
     app.listen(8000, () => {
         console.log('🚀 listening on port 8000')
