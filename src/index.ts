@@ -31,10 +31,11 @@ const main = async () => {
                 disableTouch: true,
             }),
             cookie: {
-                maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
-                httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // session max age in miliseconds
+                httpOnly: true,  // if true prevent client side JS from reading the cookie 
                 sameSite: "lax", // csrf
-                secure: __prod__, // cookie only works in https
+                secure: __prod__, // cookie only works in https 
+                                  // if true only transmit cookie over https
             },
             saveUninitialized: false,
             secret: "gtfj?/uj045887d656z#@$",
@@ -62,3 +63,5 @@ const main = async () => {
 };
 
 main().catch(err => console.log(err))
+//  1. Server<<session>> --> cookie storage<browser>
+//  2. browser<<cookie>> --> Server<{cookie : {session_id}}>
