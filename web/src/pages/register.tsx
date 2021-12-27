@@ -9,7 +9,7 @@ interface registerProps {
 const Register: React.FC<registerProps> = ({ }) => {
     return (
        <Wrapper 
-        variant='small'
+        variant='regular'
        >
 
         <Formik
