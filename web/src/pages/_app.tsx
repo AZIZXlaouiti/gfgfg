@@ -5,6 +5,9 @@ import { Provider , createClient } from 'urql'
 function MyApp({ Component, pageProps }: AppProps) {
   const client = createClient({
     url: 'http://localhost:8000/graphql',
+    fetchOptions:{
+        credentials: "include",  // allowing server to send cookie
+    }
   });
   return (
     <Provider

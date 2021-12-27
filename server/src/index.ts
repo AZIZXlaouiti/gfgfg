@@ -55,7 +55,9 @@ const main = async () => {
         }),
     });
 
-    apolloServer.applyMiddleware({ app });
+    apolloServer.applyMiddleware({ app  , cors:{
+        origin: 'htttp://localhost:3000' 
+    }});
 
     app.listen(8000, () => {
         console.log('🚀 listening on port 8000')
