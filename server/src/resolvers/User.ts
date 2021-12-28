@@ -46,11 +46,33 @@ export class UserResolver {
         @Arg('options') options: UsernamePasswordInput,
         @Ctx() { em , req }: MyContext
     ) : Promise<UserResponse>{
+
+        if (/\s/g.test(options.username)){
+           return {
+               errors:[
+                   {   
+                       field:"username",
+                       message:'no white spaces are allowed',
+                   },
+               ]
+           }
+        }
+        if (options.username.length <=2){
+            return {
+                errors:[
+                    {   
+                        field:"username",
+                        message:'length must be greater than 2',
+                    },
+                ]
+            }
+        }
+
         const hash = await argon2.hash(options.password);
         const user = em.create(User, { username: options.username, password: hash });
         await em.persistAndFlush(user);
 
-
+       
        // store cookie session 
        req.session!.userId = user._id;
 
@@ -68,6 +90,19 @@ export class UserResolver {
         return em.find(User , {})
      }
 
+    @Mutation(()=> Boolean)
+    async deleteUser(
+        @Arg("username") username: string,
+        @Ctx() { em }: MyContext
+    ): Promise<boolean> {
+      try{
+        await em.nativeDelete(User , { username })
+      }
+      catch{
+        return false
+      }
+      return true
+    }
 
      
     @Mutation(() => UserResponse)

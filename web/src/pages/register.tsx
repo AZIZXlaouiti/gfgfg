@@ -1,10 +1,10 @@
 import React from 'react';
-import { Formik , Form } from 'formik'
+import { Formik , Form  } from 'formik'
 import { FormControl, FormLabel, Input, FormErrorMessage, Button, Box } from "@chakra-ui/react"
 import { Wrapper } from '../components/Wrapper';
 import { InputField } from '../components/InputField';
 import { useMutation } from 'urql';
-import { useRegisterMutation } from '../generated/graphql';
+import { useLoginMutation, useRegisterMutation } from '../generated/graphql';
 interface registerProps {
 
 }
@@ -12,21 +12,25 @@ interface registerProps {
 // hook instead of useMutation from urql
 const Register: React.FC<registerProps> = ({ }) => {
   const [,register] = useRegisterMutation()
+  const [,login] = useLoginMutation()
     return (
        <Wrapper 
-        variant='regular'
+        variant='small'
        >
 
         <Formik
         initialValues={{ username: "", password: "" }}
-        onSubmit={async(values) => {
-            console.log(values);
-            const resp = await register({username: values.username , password:values.password})
-            resp.data.register?.user?.username
+        onSubmit={async(values , { setErrors }) => {
+            const resp = await login({username: values.username , password:values.password})
+            if (resp.data?.login.errors){
+              setErrors({
+                username: `oops erros`,
+              });
+            }
            }}
         >
-        {({values , handleChange , isSubmitting})=>(
-
+        {({ isSubmitting })=>(
+ 
         
           <Form>
               <InputField
@@ -59,3 +63,5 @@ const Register: React.FC<registerProps> = ({ }) => {
     );
 }
 export default Register;
+
+
