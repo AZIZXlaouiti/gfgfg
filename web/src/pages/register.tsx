@@ -21,11 +21,12 @@ const Register: React.FC<registerProps> = ({ }) => {
         <Formik
         initialValues={{ username: "", password: "" }}
         onSubmit={async(values , { setErrors }) => {
-            const resp = await login({username: values.username , password:values.password})
-            if (resp.data?.login.errors){
+            const resp = await register({username: values.username , password:values.password})
+            if (resp.data?.register.errors){
               setErrors({
-                username: `oops erros`,
+                username: `${resp.data?.register.errors[0].message}`,
               });
+              // console.log("resp" ,resp )
             }
            }}
         >
