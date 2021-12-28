@@ -2,6 +2,8 @@ import { User } from "../entities/User";
 import { MyContext } from "src/types/types";
 import { ObjectType,Ctx, Field, Resolver, Arg, Mutation, InputType , Query } from "type-graphql";
 import argon2 from 'argon2'
+import { EntityManager } from '@mikro-orm/postgresql'
+
 @InputType()// used in Arg
 class UsernamePasswordInput {
     @Field()
@@ -67,13 +69,25 @@ export class UserResolver {
                 ]
             }
         }
-        try{
-          em.findOne(User , {username:options.username})
-          
-        }catch{
+        
+        const res =  await em.findOne(User, { username: options.username });
+        if(res){
+            return {
+                errors:[
+                    {
+                        field:"username",
+                        message:"user already taken"
+                    }
+                ]
+              }
+        } 
+        
           
             const hash = await argon2.hash(options.password);
-            const user = em.create(User, { username: options.username, password: hash });
+            const user = em.create(User,
+                 { username: options.username,
+                     password: hash 
+                 });
             await em.persistAndFlush(user);
     
            
@@ -84,15 +98,8 @@ export class UserResolver {
                 user,
                
             }
-        }
-        return {
-            errors:[
-                {
-                    field:"username",
-                    message:"user already exist"
-                }
-            ]
-        }
+        
+        
     }
 
 
