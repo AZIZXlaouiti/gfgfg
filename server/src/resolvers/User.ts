@@ -67,18 +67,31 @@ export class UserResolver {
                 ]
             }
         }
-
-        const hash = await argon2.hash(options.password);
-        const user = em.create(User, { username: options.username, password: hash });
-        await em.persistAndFlush(user);
-
-       
-       // store cookie session 
-       req.session!.userId = user._id;
-
-        return {
-            user,
+        try{
+          em.findOne(User , {username:options.username})
+          
+        }catch{
+          
+            const hash = await argon2.hash(options.password);
+            const user = em.create(User, { username: options.username, password: hash });
+            await em.persistAndFlush(user);
+    
            
+           // store cookie session 
+           req.session!.userId = user._id;
+    
+            return {
+                user,
+               
+            }
+        }
+        return {
+            errors:[
+                {
+                    field:"username",
+                    message:"user already exist"
+                }
+            ]
         }
     }
 
