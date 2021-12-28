@@ -5,6 +5,7 @@ import { Wrapper } from '../components/Wrapper';
 import { InputField } from '../components/InputField';
 import { useMutation } from 'urql';
 import { useLoginMutation, useRegisterMutation } from '../generated/graphql';
+import { errorRec } from '../utils/errorRec';
 interface registerProps {
 
 }
@@ -23,10 +24,7 @@ const Register: React.FC<registerProps> = ({ }) => {
         onSubmit={async(values , { setErrors }) => {
             const resp = await register({username: values.username , password:values.password})
             if (resp.data?.register.errors){
-              setErrors({
-                username: `${resp.data?.register.errors[0].message}`,
-              });
-              // console.log("resp" ,resp )
+              setErrors(errorRec(resp.data.register.errors));
             }
            }}
         >
