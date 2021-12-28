@@ -4,24 +4,14 @@ import { FormControl, FormLabel, Input, FormErrorMessage, Button, Box } from "@c
 import { Wrapper } from '../components/Wrapper';
 import { InputField } from '../components/InputField';
 import { useMutation } from 'urql';
+import { useRegisterMutation } from '../generated/graphql';
 interface registerProps {
 
 }
-const LOG_MUTATION = `mutation Login($username:String! , $password:String!)
-{
-  login(options: {username:$username , password:$password}){
-    errors {
-     field,
-      message
-    },
-    user{
-      _id,
-      username
-    }
-  }
-}`
+// using useRegister graphql codegen
+// hook instead of useMutation from urql
 const Register: React.FC<registerProps> = ({ }) => {
-  const [,register] = useMutation(LOG_MUTATION)
+  const [,register] = useRegisterMutation()
     return (
        <Wrapper 
         variant='regular'
@@ -32,7 +22,7 @@ const Register: React.FC<registerProps> = ({ }) => {
         onSubmit={async(values) => {
             console.log(values);
             const resp = await register({username: values.username , password:values.password})
-            
+            resp.data.register?.user?.username
            }}
         >
         {({values , handleChange , isSubmitting})=>(
