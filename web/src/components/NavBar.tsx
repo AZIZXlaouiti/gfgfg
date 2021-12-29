@@ -1,6 +1,7 @@
 import { Box, Button  , Link as ChakraLink} from '@chakra-ui/react';
 import React from 'react'
 import { Container } from './Container';
+import NextLink from 'next/link'
 
 interface NavBarProps {
 
@@ -34,7 +35,8 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
                     login
                 </Button>
                 </ChakraLink>
-              <ChakraLink isExternal href="https://chakra-ui.com" flexGrow={1} mx={2}>
+
+              <ChakraLink isExternal href='/register' flexGrow={1} mx={2}>
                <Button width="100%" variant="outline" colorScheme="green">
                 sign up
                </Button>
@@ -43,3 +45,4 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
                     </Box>
         );
 }
+// isExternal --> open new tab  <<ChakraLink>>
