@@ -11,25 +11,25 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             // <Box bg='tomato'>
             //     pretty good
             // </Box>
-            <Container
-                flexDirection="column"
-                position="fixed"
-                width="100%"
-                maxWidth="60rem"
-                py={3}
-            >
+           <Box 
+             position="fixed"
+             top="1rem"
+             left="1rem"
+             color="green"
+           >
+               
             <Container
                 flexDirection="row"
                 position="fixed"
                 width="100%"
                 maxWidth="15rem"
                 py={3}
-            >
+                >
                   <ChakraLink
                     isExternal
                     flexGrow={3}
                     mx={2}
-                >
+                    >
                 <Button width="100%" variant="solid" colorScheme="green">
                     login
                 </Button>
@@ -40,6 +40,6 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
                </Button>
              </ChakraLink>
              </Container>
-            </Container>
+                    </Box>
         );
 }

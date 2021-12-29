@@ -18,12 +18,13 @@ import { NavBar } from '../components/NavBar'
 const Index = () => (
   <Container height="100vh">
     <Hero />
+    <NavBar/>
     <Main>
       <Text>
         Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
         <Code>TypeScript</Code>.
       </Text>
-
+          
         {/* <CTA/> */}
       <List spacing={3} my={0}>
         <ListItem>
@@ -50,7 +51,6 @@ const Index = () => (
     <Footer>
       <Text>Next ❤️ Chakra</Text>
     </Footer>
-    <NavBar/>
     {/* <CTA /> */}
   </Container>
 )
