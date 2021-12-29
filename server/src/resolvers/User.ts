@@ -2,6 +2,8 @@ import { User } from "../entities/User";
 import { MyContext } from "src/types/types";
 import { ObjectType,Ctx, Field, Resolver, Arg, Mutation, InputType , Query } from "type-graphql";
 import argon2 from 'argon2'
+import { resolve } from "path";
+import { COOKIE } from "src/constants";
 // import { EntityManager } from '@mikro-orm/postgresql'
 
 @InputType()// used in Arg
@@ -156,6 +158,21 @@ export class UserResolver {
         return { 
             user,
         };
+    }
+    @Mutation(()=> Boolean)
+    async logout(
+      @Ctx() { req  , res}: MyContext
+    ){
+         return new Promise((resolve)=>{
+             req.session.destroy((err)=>{
+                 if (err){
+                     resolve(false)
+                     return
+                 }
+                 res.clearCookie(COOKIE)
+                 resolve(true)
+             })
+         })
     }
 }
 // redis session update conflict
