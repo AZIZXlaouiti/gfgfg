@@ -2,8 +2,7 @@ import { User } from "../entities/User";
 import { MyContext } from "src/types/types";
 import { ObjectType,Ctx, Field, Resolver, Arg, Mutation, InputType , Query } from "type-graphql";
 import argon2 from 'argon2'
-import { resolve } from "path";
-import { COOKIE } from "src/constants";
+import { COOKIE } from "../constants";
 // import { EntityManager } from '@mikro-orm/postgresql'
 
 @InputType()// used in Arg
