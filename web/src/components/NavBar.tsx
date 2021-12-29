@@ -9,9 +9,6 @@ interface NavBarProps {
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
         return (
-            // <Box bg='tomato'>
-            //     pretty good
-            // </Box>
            <Box 
              position="fixed"
              top="1rem"

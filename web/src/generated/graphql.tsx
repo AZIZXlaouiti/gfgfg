@@ -117,6 +117,11 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', _id: number, username: string } | null | undefined } };
 
+export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentUserQuery = { __typename?: 'Query', me?: { __typename?: 'User', _id: number, username: string } | null | undefined };
+
 
 export const RegisterDocument = gql`
     mutation Register($username: String!, $password: String!) {
@@ -153,4 +158,16 @@ export const LoginDocument = gql`
 
 export function useLoginMutation() {
   return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
+};
+export const CurrentUserDocument = gql`
+    query CurrentUser {
+  me {
+    _id
+    username
+  }
+}
+    `;
+
+export function useCurrentUserQuery(options: Omit<Urql.UseQueryArgs<CurrentUserQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<CurrentUserQuery>({ query: CurrentUserDocument, ...options });
 };
