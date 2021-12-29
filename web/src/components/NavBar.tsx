@@ -27,16 +27,16 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
                 py={3}
                 >
                   <ChakraLink
-                    isExternal
                     flexGrow={3}
                     mx={2}
+                    href='/login'
                     >
                 <Button width="100%" variant="solid" colorScheme="green">
                     login
                 </Button>
                 </ChakraLink>
 
-              <ChakraLink isExternal href='/register' flexGrow={1} mx={2}>
+              <ChakraLink  href='/register' flexGrow={1} mx={2}>
                <Button width="100%" variant="outline" colorScheme="green">
                 sign up
                </Button>
