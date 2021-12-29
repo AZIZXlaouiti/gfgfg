@@ -2,7 +2,7 @@ import { Box, Button, Link as ChakraLink } from '@chakra-ui/react';
 import React from 'react'
 import { Container } from './Container';
 import NextLink from 'next/link'
-import { useCurrentUserQuery } from '../generated/graphql';
+import { useCurrentUserQuery, useLogoutMutation } from '../generated/graphql';
 
 interface NavBarProps {
 
@@ -10,7 +10,7 @@ interface NavBarProps {
 
 export const NavBar: React.FC<NavBarProps> = ({ }) => {
     const [{ data, fetching }] = useCurrentUserQuery()
- 
+    const [{fetching: fetchingLogout},logout] = useLogoutMutation()
     return (
         <Box
             position="fixed"
@@ -49,7 +49,13 @@ export const NavBar: React.FC<NavBarProps> = ({ }) => {
                         </Button>
                     </ChakraLink>
                     <ChakraLink flexGrow={1} mx={2}>
-                    <Button width="100%" variant="solid" colorScheme="green">
+                    <Button onClick={()=>{
+                        logout()
+                    }}
+                     isLoading={fetchingLogout}
+                     width="100%"
+                      variant="solid"
+                       colorScheme="green">
                         logout
                     </Button>
                 </ChakraLink>
