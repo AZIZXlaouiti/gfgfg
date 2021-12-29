@@ -42,11 +42,18 @@ export const NavBar: React.FC<NavBarProps> = ({ }) => {
                                 sign up
                             </Button>
                         </ChakraLink>
-                    </> : <ChakraLink flexGrow={1} mx={2}>
-                        <Button width="100%" variant="outline" colorScheme="green">
+                    </> :<>
+                     <ChakraLink flexGrow={1} mx={2}>
+                        <Button width="100%" variant="ghost" colorScheme="green">
                             {data.me.username}
                         </Button>
                     </ChakraLink>
+                    <ChakraLink flexGrow={1} mx={2}>
+                    <Button width="100%" variant="solid" colorScheme="green">
+                        logout
+                    </Button>
+                </ChakraLink>
+                </>
                 
             }
                 
