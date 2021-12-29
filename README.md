@@ -9,3 +9,4 @@ a full CRUD graphql based system using mikro-orm w/h TypeScript
 - Node js
 - Express 
 - postgresQl
+- urql
