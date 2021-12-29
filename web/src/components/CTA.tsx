@@ -6,9 +6,9 @@ export const CTA = () => (
   <Container
     flexDirection="row"
     position="fixed"
-    bottom="0"
+    // bottom="0"
     width="100%"
-    maxWidth="48rem"
+    maxWidth="60rem"
     py={3}
   >
     <ChakraLink isExternal href="https://chakra-ui.com" flexGrow={1} mx={2}>

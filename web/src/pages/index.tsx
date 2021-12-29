@@ -15,7 +15,6 @@ import { DarkModeSwitch } from '../components/DarkModeSwitch'
 import { CTA } from '../components/CTA'
 import { Footer } from '../components/Footer'
 import { NavBar } from '../components/NavBar'
-
 const Index = () => (
   <Container height="100vh">
     <Hero />
@@ -25,8 +24,8 @@ const Index = () => (
         <Code>TypeScript</Code>.
       </Text>
 
+        {/* <CTA/> */}
       <List spacing={3} my={0}>
-    <NavBar/>
         <ListItem>
           <ListIcon as={CheckCircleIcon} color="green.500" />
           <ChakraLink
@@ -51,7 +50,8 @@ const Index = () => (
     <Footer>
       <Text>Next ❤️ Chakra</Text>
     </Footer>
-    <CTA />
+    <NavBar/>
+    {/* <CTA /> */}
   </Container>
 )
 

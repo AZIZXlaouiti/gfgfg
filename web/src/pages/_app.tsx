@@ -2,6 +2,8 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../theme'
 import { AppProps } from 'next/app'
 import { Provider , createClient } from 'urql'
+import "../styles/style.css"
+
 function MyApp({ Component, pageProps }: AppProps) {
   const client = createClient({
     url: 'http://localhost:8000/graphql',
